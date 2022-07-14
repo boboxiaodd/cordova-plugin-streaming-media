@@ -210,7 +210,14 @@ NSString * const DEFAULT_IMAGE_SCALE = @"center";
 
 -(void)startPlayer:(NSString*)uri {
     NSLog(@"startplayer called");
-    NSURL *url             =  [NSURL URLWithString:uri];
+//     NSURL *url             =  [NSURL URLWithString:uri];
+    NSURL *url;
+    if([uri hasPrefix:@"http"]){
+        url             =  [NSURL URLWithString:uri];
+    }else{
+        url             =  [NSURL fileURLWithPath:uri];
+    }
+    movie               =  [AVPlayer playerWithURL:url];
     movie                  =  [AVPlayer playerWithURL:url];
     
     // handle orientation
